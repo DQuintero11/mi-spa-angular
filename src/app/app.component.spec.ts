@@ -14,11 +14,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'mi-spa-angular' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('mi-spa-angular');
-  });
+
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);

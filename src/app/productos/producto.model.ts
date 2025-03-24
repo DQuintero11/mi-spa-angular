@@ -4,6 +4,6 @@ export interface Producto {
     descripcion: string;
     precio: number;
     stock: number;
-    fechaCreacion: string;  // O usa Date si prefieres trabajar con fechas como objetos Date
+    fechaCreacion?: Date;  
   }
   

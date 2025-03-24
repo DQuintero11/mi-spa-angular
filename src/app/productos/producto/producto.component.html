@@ -1,1 +1,126 @@
-<p>producto works!</p>
+<div class = "padre">
+
+    <div class="product-container">
+
+        <div>
+            <h2>Lista de Productos</h2>
+        </div>
+    
+      
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Fecha de Creación</th>
+              <th>Acciones</th> 
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products; let i = index">
+              <td>{{ product.nombre }}</td>
+              <td>{{ product.descripcion }}</td>
+              <td>{{ product.precio | currency }}</td>
+              <td>{{ product.stock }}</td>
+              <td>{{ product.fechaCreacion | date }}</td>
+              <td> 
+                <button (click)="editProduct(product.id)" class="btn-edit">Editar</button>
+                <button (click)="deleteProduct(product.id)" class="btn-delete">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      
+
+    
+        <!-- Modal para crear un producto -->
+    <div *ngIf="isCreateModalOpen" class="modal-overlay">
+        <div class="modal-content">
+          <h3>Crear Nuevo Producto</h3>
+          <form (ngSubmit)="createProducto()" #createProductForm="ngForm">
+            <div class="input-group">
+              <label for="nombre">Nombre</label>
+              <input id="nombre" type="text" [(ngModel)]="newProduct.nombre" name="nombre" required />
+            </div>
+      
+            <div class="input-group">
+              <label for="descripcion">Descripción</label>
+              <textarea id="descripcion" [(ngModel)]="newProduct.descripcion" name="descripcion" required></textarea>
+            </div>
+      
+            <div class="input-group">
+              <label for="precio">Precio</label>
+              <input id="precio" type="number" [(ngModel)]="newProduct.precio" name="precio" required />
+            </div>
+      
+            <div class="input-group">
+              <label for="stock">Stock</label>
+              <input id="stock" type="number" [(ngModel)]="newProduct.stock" name="stock" required />
+            </div>
+      
+            <div class="modal-actions">
+              <button type="submit" [disabled]="!createProductForm.form.valid">Crear Producto</button>
+              <button type="button" (click)="closeCreateModal()">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    
+        <!-- Modal de edición -->
+        <div *ngIf="selectedProducto" class="modal">
+            <div class="modal-content">
+              <h3>Editar Producto</h3>
+              <form (ngSubmit)="saveChanges()">
+                <div class="input-group">
+                  <label for="nombre">Nombre</label>
+                  <input id="nombre" [(ngModel)]="selectedProducto.nombre" name="nombre" required />
+                </div>
+                <div class="input-group">
+                  <label for="descripcion">Descripción</label>
+                  <input
+                    id="descripcion"
+                    [(ngModel)]="selectedProducto.descripcion"
+                    name="descripcion"
+                    required
+                  />
+                </div>
+                <div class="input-group">
+                  <label for="precio">Precio</label>
+                  <input
+                    type="number"
+                    id="precio"
+                    [(ngModel)]="selectedProducto.precio"
+                    name="precio"
+                    required
+                  />
+                </div>
+                <div class="input-group">
+                  <label for="stock">Stock</label>
+                  <input type="number" id="stock" [(ngModel)]="selectedProducto.stock" name="stock" required />
+                </div>
+        
+                <div class="error-message" *ngIf="errorMessage">
+                  {{ errorMessage }}
+                </div>
+        
+                <button type="submit" class="btn-submit">Guardar Cambios</button>
+                <button type="button" class="btn-cancel" (click)="selectedProducto = null">Cancelar</button>
+              </form>
+            </div>
+          </div>
+    
+    
+        <!-- Mensaje de error si no se pudieron obtener los productos -->
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+    </div>
+
+    <div>
+        <button class="btn-create" (click)="openCreateModal()">Crear Producto</button>
+    </div>
+</div>
+
+  

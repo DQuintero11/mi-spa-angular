@@ -26,9 +26,10 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+"styles": [
+  "src/styles.css",
+  "src/app/auth/login/login.component.css" 
+],
             "scripts": []
           },
           "configurations": {

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';  // Importar HttpClient
 import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root',  // Esto asegura que el servicio esté disponible globalmente
 })
 export class AuthService {
   private apiUrl = 'http://localhost:5000/api/auth/login';  // URL de tu API de autenticación

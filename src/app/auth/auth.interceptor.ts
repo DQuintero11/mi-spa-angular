@@ -12,8 +12,8 @@ export class AuthInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${currentUser.token}`,
         },
       });
-      return next.handle(clonedRequest);  // Enviar la solicitud con el token
+      return next.handle(clonedRequest);  
     }
-    return next.handle(req);  // Si no hay token, solo enviar la solicitud original
+    return next.handle(req);  
   }
 }
