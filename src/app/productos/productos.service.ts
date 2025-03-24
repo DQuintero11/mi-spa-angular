@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Producto } from './producto.model';  // Asegúrate de que tienes un modelo de Producto
+import { Producto } from './producto.model';  
+import { ToastrService, ToastNoAnimation } from 'ngx-toastr';
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import { Producto } from './producto.model';  // Asegúrate de que tienes un mod
 export class ProductoService {
   private apiUrl = 'http://localhost:5000/api/productos';  // Cambia a la URL de tu API
 
-  constructor(private http: HttpClient ) {}
+  constructor(private http: HttpClient ,private toastr: ToastrService ) {}
 
   // Obtener todos los productos
   getProductos(): Observable<Producto[]> {

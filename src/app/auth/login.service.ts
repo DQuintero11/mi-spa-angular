@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs'; 
 import { catchError, map } from 'rxjs/operators'; 
+import { ToastrService, ToastNoAnimation } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 export class LoginService {
   private apiUrl = 'https://localhost:7247/api/auth/login';  
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient , private toastr: ToastrService) { }
 
   // Realizar login
   login(username: string, password: string): Observable<any> {
@@ -21,6 +22,7 @@ export class LoginService {
         return response;
       }),
       catchError(error => {
+        this.toastr.error("ERROR DE LOGEO","Info");
         console.error('Error de autenticación', error);
         throw error;
       })
@@ -28,6 +30,7 @@ export class LoginService {
   }
 
   logout(): void {
+    this.toastr.info("SESION FINALIZADA","Info");
     localStorage.removeItem('authToken');
     console.log('Sesión cerrada');
   }

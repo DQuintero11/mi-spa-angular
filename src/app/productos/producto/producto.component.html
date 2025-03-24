@@ -5,36 +5,40 @@
         <div>
             <h2>Lista de Productos</h2>
         </div>
-    
-      
+  
+
         <table class="product-table">
           <thead>
             <tr>
-              <th>Nombre</th>
+              <th>Nombre <button (click)="sortByName(true)">↑</button> <button (click)="sortByName(false)">↓</button></th>
               <th>Descripción</th>
-              <th>Precio</th>
+              <th>Precio <button (click)="sortByPrice(true)">↑</button> <button (click)="sortByPrice(false)">↓</button></th>
               <th>Stock</th>
               <th>Fecha de Creación</th>
               <th>Acciones</th> 
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let product of products; let i = index">
+          
+            <tr *ngFor="let product of getPaginatedProducts()   | paginate: { itemsPerPage: 5, currentPage: page, totalItems: products.length };  let i = index">
+
               <td>{{ product.nombre }}</td>
               <td>{{ product.descripcion }}</td>
               <td>{{ product.precio | currency }}</td>
               <td>{{ product.stock }}</td>
               <td>{{ product.fechaCreacion | date }}</td>
               <td> 
-                <button (click)="editProduct(product.id)" class="btn-edit">Editar</button>
-                <button (click)="deleteProduct(product.id)" class="btn-delete">Eliminar</button>
+                <button (click)="editProduct(i, product.id)" class="btn-edit">Editar</button>
+                <button (click)="deleteProduct(i, product.id)" class="btn-delete">Eliminar</button>
               </td>
             </tr>
           </tbody>
         </table>
-      
 
-    
+        <pagination-controls (pageChange)="onPageChange($event)"   previousLabel="Anterior" nextLabel="Siguiente" ></pagination-controls>
+        
+
+
         <!-- Modal para crear un producto -->
     <div *ngIf="isCreateModalOpen" class="modal-overlay">
         <div class="modal-content">

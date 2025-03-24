@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { LoginService } from '../login.service'; 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';  
-
+import { ToastrService, ToastNoAnimation } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent {
   isLoading = false;
   errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private loginService: LoginService , private router: Router) {
+  constructor(private fb: FormBuilder, private loginService: LoginService , private router: Router, private toastr: ToastrService) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
